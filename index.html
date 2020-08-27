@@ -1,7 +1,7 @@
+<head>
 
-
-<script source="viz.js"></script>
-<script source="full.render.js"></script>
+<script src="viz.js"></script>
+<script src="full.render.js"></script>
 
 <script>
 
@@ -37,7 +37,7 @@ function draw_dot_file(stringforviz){
 
   var viz = new Viz();
   
-  viz.renderSVGElement(stringforviz)
+  viz.renderSVGElement('digraph { a -> b }')//stringforviz)
   .then(function(element) {
 
 var here=document.getElementById("hereidraw");
@@ -62,6 +62,7 @@ fetch(wdir+"editlinkdot.dot").
     catch(alert("some problem with reading dot file from github"));
 
 </script>
+</head>
 <body onload="bodyonload()">
 <h1>Yak Documentation tool</h1>
 
