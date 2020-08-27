@@ -39,7 +39,7 @@ function draw_dot_file(stringforviz){
 
   var viz = new Viz();
   
-  viz.renderSVGElement('digraph { a -> b }')//stringforviz)
+  viz.renderSVGElement(stringforviz)
   .then(function(element) {
 
 var here=document.getElementById("hereidraw");
