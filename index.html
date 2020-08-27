@@ -49,7 +49,7 @@ here.appendChild(element);
 
 fetch(wdir+"editlinkdot.dot").
     then(resp=>resp.text()).
-    then(data=>draw_dot_file(data)).
+    then(data=>{console.log(data);draw_dot_file(data);}).
     catch(alert("some problem with reading dot file from github"));
 
 </script>
@@ -402,7 +402,7 @@ http://www.zlib.net/zlib_license.html
 
 </script>
 
-<!-- end of viz.js & start of full.render,js -->
+<!-- end of viz.js & start of full.render.js -->
 
 <script>
 /*
