@@ -13,7 +13,6 @@ githubrepo=s1[2].split("/")[1];
 //https://raw.githubusercontent.com/tilnow/testbot/abranch/linktomembers
 rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
 wdir=rawdir+subdir; //is this even needed?
-var viz=0;
 
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
   if(sessionStorage.getItem("first")=="NO"){
@@ -36,7 +35,7 @@ uses Graphviz, Viz.js, Expat, zlib, Emscripten, with copyright notices in the so
 
 function draw_dot_file(stringforviz){
 
-// var viz = new Viz();
+  var viz = new Viz();
   
   viz.renderSVGElement(stringforviz)
   .then(function(element) {
