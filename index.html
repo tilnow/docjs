@@ -1,12 +1,13 @@
 <script>
+
 basedir="https://tilnow.github.io/docjs/";
 subdir="";
 s1=basedir.split('.');
 githubuser=s1[0].split("/")[2];
 githubrepo=s1[2].split("/")[1];
 //https://raw.githubusercontent.com/tilnow/testbot/abranch/linktomembers
-rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/"
-wdir=rawdir+subdir; #is this even needed?
+rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
+wdir=rawdir+subdir; //is this even needed?
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
   if(sessionStorage.getItem("first")=="NO"){
 	return;
