@@ -8,13 +8,14 @@ githubrepo=s1[2].split("/")[1];
 //https://raw.githubusercontent.com/tilnow/testbot/abranch/linktomembers
 rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
 wdir=rawdir+subdir; //is this even needed?
+
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
   if(sessionStorage.getItem("first")=="NO"){
 	return;
 	}
   sessionStorage.setItem("first","NO");//indeed works. contenst are not meaningful, though
   alert(`
-CKspa V0.8 Copyright (2018) @tilnow. For now released with  the MIT license:
+docjs V0.8 Copyright (2020) @tilnow. For now released with  the MIT license:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -24,12 +25,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 uses Graphviz, Viz.js, Expat, zlib, Emscripten, with copyright notices in the source file for Eclipse, MIT, Zlib.`);
 
-  clist=[];
-  klist=[];
-  llist=[];
-
-  dotstring=pre_text;
-  update_dot();//so we do not have blank screen
 }
 function draw_dot_file(stringforviz){
 
@@ -58,6 +53,7 @@ fetch(wdir+"editlinkdot.dot").
     catch(alert("some problem with reading dot file form github'));
 
 </script>
+<body onload="bodyonload()">
 <h1>Yak Documentation tool</h1>
 
 <p>A graphic layout where each text item is clickable and leads to a descriptive file. hosted on github pages.</p>
@@ -68,7 +64,7 @@ fetch(wdir+"editlinkdot.dot").
 
 <p><a href="editable.svg">link to editable version</a></p>
 <div id="hereidraw"></div>
-
+</body>
 
 
 <script>
