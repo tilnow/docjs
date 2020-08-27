@@ -1,0 +1,1 @@
+website generates feedupdates at buildtime (including "featured user") and using a function, which is then sent for twitting. is this accurate?

@@ -1,0 +1,101 @@
+#a dot file which includes all our IT infrastructure
+#unlike standard dot, we have some macros here
+# %%XXX%%% means there is a file XXX.md with explanation. all items AND links should have one, so please create
+# some keywords in uppercase, like TOOL, DATA, WEBSERVICE are defined in replacings.sed and contain formatting instructions
+# all other dot thingees apply
+# rendering is using plain dot
+
+digraph G {
+labelloc="t";
+label="map of yak collective IT infrastructure (work in progress)";
+
+#components
+
+
+calandar WEBSITE[label="google\ncalandar"]%%calandar%%;
+docs WEBSITE[label="google docs"]%%docs%%;
+forms WEBSITE[label="registration\nform"]%%forms%%;
+ifttt WEBSERVICE[label="IFTT"]%%ifttt%%;
+dns WEBSERVICE[label="Namecheap"]%%dns%%;
+github WEBSERVICE[label="GitHub"]%%github%%;
+netlify WEBSERVICE[label="Netlify"]%%netlify%%;
+jekyll TOOL[label="Jekyll"]%%jekyll%%;
+internet WEBSERVICE[label="Internet"]%%internet%%;
+carl WEBSERVICE[label="Carl"]%%carl%%;
+
+discord WEBSITE[label="Discord"]%%discord%%;
+twitter WEBSERVICE[label="Twitter"]%%twitter%%;
+
+welcomer TOOL[label="welcome bot"]%%welcomer%%
+yakyak TOOL[label="yakyak carl-bot"]%%yakyak%%
+
+#the website
+subgraph cluster_4 {
+  labelloc="t";
+  label="website functionality";
+  website WEBSITE[label="Yakcollective.org"]%%website%%;
+  netlifyrt WEBSERVICE[label="netlify\nbackending"]%%netlifyrt%%; 
+
+}
+
+#things i do not know how to connect 
+subgraph cluster_0 {
+  labelloc="t";
+  label="not sure what connection is (yet)";
+
+  zapier WEBSERVICE[label="Zapier"]%%zapier%%;
+
+}
+
+#things not connected by IT with rest of infrastructure and managed seperatly and not used by members
+subgraph cluster_1 {
+  labelloc="t";
+  label="unconnected and manually managed\nnot by members";
+
+  gmail WEBSERVICE[label="yakcollective.org\n@gmail.com"]%%gmail%%;
+  facebook WEBSERVICE[label="Facebook"]%%facebook%%;
+  linkedin WEBSERVICE[label="Linkedin"]%%linkedin%%;
+}
+
+#things in process of connection with rest of infrastructure 
+subgraph cluster_2 {
+  labelloc="t";
+  label="in next version or two should be connected";
+
+  knack WEBSITE[label="Knack"]%%knack%%;
+  roam WEBSITE[label="Roam"]%%roam%%;
+  yak_scraper TOOL[label="yak_scraper"]%%yak_scraper%%
+
+}
+
+#things that represent user generated data on web 
+subgraph cluster_3 {
+  labelloc="t";
+  label="members' web presence";
+
+  substack USERSITE[label="Substack"]%%substack%%;
+  blogs USERSITE[label="member\nblogs"]%%blogs%%;
+  websites USERSITE[label="member\nwebsites"]%%websites%%;
+
+}
+
+#links
+website->ifttt->twitter DATA[label="feedupdates"]%%feedupdates%%;
+{substack, blogs,websites}->netlifyrt DATA[label="member-generated\nweb-content"]%%usercont%%;
+netlifyrt->{github,discord} FUNCTION[label="create_post"]%%create_post%%;
+dns->netlify DATA[label="CNAME"]%%cname%%;
+website->forms DATA[label="minimal\nuser data"]%%newuserdata%%;
+forms->discord FUNCTION[label="invite"]%%invite%%;
+discord->welcomer DATA[label="newby"]%%newby%%;
+welcomer->discord FUNCTION[label="welcoming"]%%welcoming%%;
+discord->yakyak DATA[label="newby"]%%newby%%;
+yakyak->discord FUNCTION[label="prune"]%%prune%%;
+
+welcomer->discord FUNCTION[label="welcome\nnew user"]%%welcoming%%
+docs->website FUNCTION[label="host\nprojects"]%%hostproj%%; 
+calandar->carl FUNCTION[label="calandar yak"]%%calbot%%;
+carl->discord DATA[label="reminders"]%%reminders%%;
+github->jekyll DATA[label="md files\nand others"]%%mdfiles%%;
+jekyll->netlify DATA [label="Rendered\nwebsite"]%%rendered website%%;
+netlify->{internet,website} DATA[label="Deploy"]%%deploy%%;
+}

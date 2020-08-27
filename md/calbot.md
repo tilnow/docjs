@@ -1,0 +1,1 @@
+bot on carl.gg that reads calandar events and pushes them to #event channel on discord

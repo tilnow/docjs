@@ -1,0 +1,1 @@
+netlify function that pushs a post to github (which causes a rebuild) and to discord channel #writings
