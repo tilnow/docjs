@@ -55,7 +55,8 @@ function draw_dot_file(stringforviz){
 console.log(stringforviz,element)
     allas=document.getElementsByTagName('a');
     console.log(allas, element.getElementsByTagName('a'));
-    for (i = 0; i < allas.length; i++) {
+    count=allas.length
+    for (i = count-1; i>= 0 ; i--) {
 
         a=allas[i];
         ref=a.getAttribute("xlink:href");
