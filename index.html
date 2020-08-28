@@ -3,12 +3,12 @@
 
 </style>
 
-<script src="assets/stam.js"></script>
+<script src="_docs/assets/stam.js"></script>
 
 
-<script src="assets/viz.js"></script>
-<script src="assets/full.render.js"></script>
-<script src="assets/showdown.min.js"></script>
+<script src="_docs/assets/viz.js"></script>
+<script src="_docs/assets/full.render.js"></script>
+<script src="_docs/assets/showdown.min.js"></script>
 <!--- --->
 
 <script>
@@ -53,6 +53,7 @@ function clicked_url(x)
     else
     {
         w=window.open("");
+
         fetch(wdir+x+".md").
     then(resp=>resp.text()).
     then(data=>{
@@ -61,7 +62,13 @@ function clicked_url(x)
         var converter = new showdown.Converter(),
         html = converter.makeHtml(data);
         console.log(html)
-        w.write(html);
+        w.document.body.innerHTML=html;
+        //w.history.replaceState("object or string", x, "/isthisaurl"); //does notw ork on empty items
+        w.location.hash = "Now showing documentation for file: " + x; //changes tab name too
+        w.document.title=x;
+        w.document.close();
+
+        
     }).
     catch(console.log("maybe some problem with reading dot file from github"));
 
