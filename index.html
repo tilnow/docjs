@@ -82,7 +82,7 @@ function subd_dot(x)
 }
 function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
 {
-    let a=RegExp('/%%([a-zA-Z0-9_\/ -]+)%%','g')
+    let a=RegExp('%%([a-zA-Z0-9_\/ -]+)%%','g')
     x=x.replace(a,'[URL="$1"]');
 return x;
 }
