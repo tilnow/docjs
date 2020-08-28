@@ -1,9 +1,19 @@
 #a dot file which includes all our IT infrastructure
 #unlike standard dot, we have some macros here
 # %%XXX%%% means there is a file XXX.md with explanation. all items AND links should have one, so please create
-# some keywords in uppercase, like TOOL, DATA, WEBSERVICE are defined in replacings.sed and contain formatting instructions
+# some keywords in uppercase, like TOOL, DATA, WEBSERVICE were defined in replacings.sed and now down below and contain formatting instructions
 # all other dot thingees apply
 # rendering is using plain dot
+
+
+#{ #start substitution definitions no spaces before name. hash (#) after name. comment optional
+#WEBSITE#[shape=doublecircle][color=green] #a site we expect _members_ (or at least non-sys admins) to use the site-provided ui sometimes
+#WEBSERVICE#[shape=egg][color=green] #mainly used to transform data. of course, somebody needs to use the ui at some point
+#USERSITE#[shape=triangle][color=green] #something individual members deal with indepdnent of YC
+#TOOL#[shape=rectangle][color=blue] # a software tool
+#DATA#[color=red] #data
+#FUNCTION#[color=black] #a function
+#} #end substitution definitions
 
 digraph G {
 labelloc="t";
