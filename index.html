@@ -66,7 +66,7 @@ function subd_dot(x)
 {
     var pairs=[];
     s=x.indexOf("\n#{")
-    if s<0 return x; # no definitions portion
+    if s<0 return x; // no definitions portion
     e=x.indexOf("\n#}", s)
     if e<0 throw "missing #} in dot file"
     defs=x.substring(index('\n',s+1),index('\n',e+1));
