@@ -53,24 +53,21 @@ function draw_dot_file(stringforviz){
   viz.renderSVGElement(stringforviz)
   .then(function(element) {
 
-allas=element.getElementsByTagName('a');
-allas.forEach(function(a){
-    var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    
-    ref=a.getAttribute("xlink:href");
-    newg.setAttribute("onclick","clicked_url("+ref+")");
-    title=a.getAttribute("xlink:title");
-    newg.setAttribute("xlink:title",title);
-    kids=a.childNodes;
-    kids.forEach(function(k){
-        newg.addChild(k);
-    });
-    a.parentNode.addChild(newg);
-    a.parentNode.removeChild(a);
-    
-
-
-});
+    allas=element.getElementsByTagName('a');
+    for (i = 0; i < allas.length; i++) {
+        var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        a=allas[i];
+        ref=a.getAttribute("xlink:href");
+        newg.setAttribute("onclick","clicked_url("+ref+")");
+        title=a.getAttribute("xlink:title");
+        newg.setAttribute("xlink:title",title);
+        kids=a.childNodes;
+        for(j=0;j<kids.length;j++){
+            newg.addChild(kids[j]);
+        };
+        a.parentNode.addChild(newg);
+        a.parentNode.removeChild(a);
+    }
 
 var here=document.getElementById("hereidraw");
 here.removeChild(here.lastChild);
