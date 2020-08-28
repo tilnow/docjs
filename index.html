@@ -129,7 +129,7 @@ function subl_dot(x) //put in correct link adressess. put in ONLY the name of th
 {
 return x;
 }
-editmode=false;
+iseditmode=false;
 
 fetch(wdir+"editme.dot").
     then(resp=>resp.text()).
@@ -148,11 +148,11 @@ fetch(wdir+"editme.dot").
 
 <!-- Rounded switch for w3school-->
 Editable:<label class="switch" id="editmode"> 
-  <input type="checkbox" onChange="editmode=!editmode;">
+  <input type="checkbox" onChange="iseditmode=!iseditmode;">
 <script>
 function toggleeditmode(element)
  {
-   editmode=element.checked;
+   iseditmode=element.checked;
  }
 </script>
   <span class="slider round"></span>
