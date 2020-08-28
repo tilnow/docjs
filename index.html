@@ -69,8 +69,8 @@ function subd_dot(x)
     if (s<0) {return x;} // no definitions portion
     e=x.indexOf("\n#}", s);
     if (e<0) {throw "missing #} in dot file";}
-    defs=x.substring(indexOf('\n',s+1),indexOf('\n',e+1));
-    x=x.substring(0,s)+x.substring(indexOf('\n',e+1))
+    defs=x.substring(x.indexOf('\n',s+1),x.indexOf('\n',e+1));
+    x=x.substring(0,s)+x.substring(x.indexOf('\n',e+1))
     tmp1=defs.split('\n');
     tmp1.forEach(function(line){
             l=line.split("#");
