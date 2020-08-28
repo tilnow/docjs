@@ -3,20 +3,20 @@
 
 </style>
 
-<script src="_docs/assets/stam.js"></script>
+<script src="assets/stam.js"></script>
 
 
-<script src="_docs/assets/viz.js"></script>
-<script src="_docs/assets/full.render.js"></script>
-<script src="_docs/assets/showdown.min.js"></script>
-<!--- --->
+<script src="assets/viz.js"></script>
+<script src="assets/full.render.js"></script>
+<script src="assets/showdown.min.js"></script>
+<!---ideally we would run from  a higher dir. but maybe also assetts will need to be in this dir --->
 
 <script>
 
 basedir="https://tilnow.github.io/docjs/";
 t=window.location.href;
 if (t[0]=="h"){basedir=t;}//running from web, not locally
-subdir="_docs/";
+subdir=""; //"_docs/"; for now it seems all must be in same dir
 s1=basedir.split('.');
 githubuser=s1[0].split("/")[2];
 githubrepo=s1[2].split("/")[1];
