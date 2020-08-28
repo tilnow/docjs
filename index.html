@@ -135,7 +135,7 @@ function subd_dot(x)
     defs=x.substring(x.indexOf('\n',s+1),e-1);
     x=x.substring(0,s)+x.substring(x.indexOf('\n',e+1))
     tmp1=defs.split('\n');
-    /console.log(tmp1)
+    //console.log(tmp1);
     tmp1.forEach(function(line){
             if(!line || line[0]!="#") {return;}
             l=line.split("#");
