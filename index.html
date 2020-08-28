@@ -85,10 +85,11 @@ function subl_dot(x) //put in correct link adressess. put in ONLY the name of th
 return x;
 }
 iseditmode=false;
-
+stam="";
 fetch(wdir+"editme.dot").
     then(resp=>resp.text()).
     then(data=>{
+        stam=data;
         console.log(data);
         subd=subd_dot(data);
         console.log(subd);
