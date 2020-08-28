@@ -117,7 +117,7 @@ here.appendChild(element);
     viz = new Viz();
 
     // Possibly display the error
-    console.error(error);
+    console.log(error);
     console.log(viz);
   });
 }
@@ -146,15 +146,12 @@ fetch(wdir+"editme.dot").
 <p>use links below to edit docs. use github editor to edit layout of file <a href="https://github.com/tilnow/tilnow.github.io/edit/master/editme.dot">editme.dot</a></p>
 
 
-<!-- Rounded switch -->
-<label class="switch" id="editmode">Editable: 
+<!-- Rounded switch for w3school-->
+Editable:<label class="switch" id="editmode"> 
   <input type="checkbox">
   <span class="slider round"></span>
 </label>
 
-<p><a href="displayable.svg">link to show-only version</a></p>
-
-<p><a href="editable.svg">link to editable version</a></p>
 <div id="hereidraw"><div id="sonofhereidraw"></div></div>
 </body>
 
