@@ -1,4 +1,68 @@
 <head>
+<style>
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
 
 <script src="stam.js"></script>
 
@@ -57,12 +121,20 @@ here.appendChild(element);
     console.log(viz);
   });
 }
+function subd_dot(x)
+{
+return x;
+}
+function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
+{
+return x;
+}
+mode="edit";
 
-
-fetch(wdir+"editlinkdot.dot").
+fetch(wdir+"editme.dot").
     then(resp=>resp.text()).
-    then(data=>{console.log(data);draw_dot_file(data);}).
-    catch(alert("some problem with reading dot file from github"));
+    then(data=>{console.log(data);subd=subd_dot(data);subl=subl_dot(subd);draw_dot_file(subl);}).
+    catch(console.log("maybe some problem with reading dot file from github"));
 
 </script>
 </head>
@@ -72,6 +144,13 @@ fetch(wdir+"editlinkdot.dot").
 <p>A graphic layout where each text item is clickable and leads to a descriptive file. hosted on github pages.</p>
 
 <p>use links below to edit docs. use github editor to edit layout of file <a href="https://github.com/tilnow/tilnow.github.io/edit/master/editme.dot">editme.dot</a></p>
+
+
+<!-- Rounded switch -->
+<label class="switch" id="editmode">Editable: 
+  <input type="checkbox">
+  <span class="slider round"></span>
+</label>
 
 <p><a href="displayable.svg">link to show-only version</a></p>
 
