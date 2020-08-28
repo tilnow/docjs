@@ -40,6 +40,11 @@ uses Graphviz, Viz.js, Expat, zlib, Emscripten, with copyright notices in the so
 
 
 }
+function clicked_url(x)
+{
+console.log(x, iseditmode);
+return false;
+}
 
 function draw_dot_file(stringforviz){
 
@@ -47,6 +52,7 @@ function draw_dot_file(stringforviz){
   
   viz.renderSVGElement(stringforviz)
   .then(function(element) {
+
 
 var here=document.getElementById("hereidraw");
 here.removeChild(here.lastChild);
