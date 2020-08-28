@@ -52,12 +52,15 @@ function draw_dot_file(stringforviz){
   
   viz.renderSVGElement(stringforviz)
   .then(function(element) {
-
-    allas=element.getElementsByTagName('a');
+console.log(stringforviz,element)
+    allas=document.getElementsByTagName('a');
+    console.log(allas, element.getElementsByTagName('a'));
     for (i = 0; i < allas.length; i++) {
-        var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
         a=allas[i];
         ref=a.getAttribute("xlink:href");
+        if (!ref) {continue;}//means it is not an svg a element
+        var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
         newg.setAttribute("onclick","clicked_url("+ref+")");
         title=a.getAttribute("xlink:title");
         newg.setAttribute("xlink:title",title);
