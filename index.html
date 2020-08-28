@@ -72,10 +72,12 @@ function subd_dot(x)
     defs=x.substring(x.indexOf('\n',s+1),x.indexOf('\n',e+1));
     x=x.substring(0,s)+x.substring(x.indexOf('\n',e+1))
     tmp1=defs.split('\n');
+    console.log(tmp1)
     tmp1.forEach(function(line){
             l=line.split("#");
             let f=RegExp(l[1],'g');
             t=l[2];
+            console.log(l,t);
             x.replace(f,t);
         });
     return x;
@@ -83,6 +85,7 @@ function subd_dot(x)
 function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
 {
     let a=RegExp('%%([a-zA-Z0-9_\/ -]+)%%','g')
+    console.log(a);
     x=x.replace(a,'[URL="$1"]');
 return x;
 }
