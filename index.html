@@ -63,9 +63,9 @@ function draw_dot_file(stringforviz){
         newg.setAttribute("xlink:title",title);
         kids=a.childNodes;
         for(j=0;j<kids.length;j++){
-            newg.addChild(kids[j]);
+            newg.appendChild(kids[j]);
         };
-        a.parentNode.addChild(newg);
+        a.parentNode.appendChild(newg);
         a.parentNode.removeChild(a);
     }
 
