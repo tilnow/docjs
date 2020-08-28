@@ -24,9 +24,12 @@ githubrepo=s1[2].split("/")[1];
 rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
 wdir=rawdir+subdir; //is this even needed?
 //\"https:\/\/github.com\/tilnow\/tilnow.github.io\/edit\/master\/md\/\1.md\
-edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
+
 document.getElementById("editfile").href=edir+"editme.dot";
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
+
+edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
+
   if(sessionStorage.getItem("first")=="NO"){
 	return;
 	}
@@ -40,7 +43,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-uses Graphviz, Viz.js, Expat, zlib, Emscripten, with copyright notices in the source file for Eclipse, MIT, Zlib.`);
+uses Graphviz, Viz.js, showdown, Expat, zlib, Emscripten, with copyright notices in the source file for Eclipse, MIT, Zlib.`);
 
 
 }
