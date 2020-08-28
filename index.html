@@ -24,16 +24,17 @@ githubrepo=s1[2].split("/")[1];
 rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
 wdir=rawdir+subdir; //is this even needed?
 //\"https:\/\/github.com\/tilnow\/tilnow.github.io\/edit\/master\/md\/\1.md\
+edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
 
-document.getElementById("editfile").href=edir+"editme.dot";
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
 
-edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
+    document.getElementById("editfile").href=edir+"editme.dot";
+
 
   if(sessionStorage.getItem("first")=="NO"){
 	return;
 	}
-  sessionStorage.setItem("first","NO");//indeed works. contenst are not meaningful, though
+  sessionStorage.setItem("first","NO");//indeed works. contents are not meaningful, though
   alert(`
 docjs V0.8 Copyright (2020) @tilnow. For now released with  the MIT license:
 
