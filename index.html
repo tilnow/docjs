@@ -49,7 +49,7 @@ uses Graphviz, Viz.js, showdown, Expat, zlib, Emscripten, with copyright notices
 }
 function clicked_url(x)
 {
-    console.log(x, iseditmode);
+    //console.log(x, iseditmode);
     if(iseditmode){
         window.open(edir+x+".md");
     }
@@ -61,10 +61,10 @@ function clicked_url(x)
     then(resp=>resp.text()).
     then(data=>{
         stam=data;
-        console.log(data);
+        //console.log(data);
         var converter = new showdown.Converter(),
         html = converter.makeHtml(data);
-        console.log(html)
+        //console.log(html)
         w.document.body.innerHTML=html;
         //w.history.replaceState("object or string", x, "/isthisaurl"); //does notw ork on empty items
         w.location.hash = "Now showing documentation for file: " + x; //changes tab name too
@@ -85,26 +85,26 @@ function draw_dot_file(stringforviz){
   
   viz.renderSVGElement(stringforviz)
   .then(function(element) {
-console.log(stringforviz,element)
+//console.log(stringforviz,element)
     allas=element.getElementsByTagName('a');
-    console.log(document.getElementsByTagName('a'), element.getElementsByTagName('a'));
-    count=allas.length;
-    console.log(count);
+    //console.log(document.getElementsByTagName('a'), element.getElementsByTagName('a'));
+    //count=allas.length;
+    //console.log(count);
     for (i = count-1; i>= 0 ; i--) {
         a=allas[i];
         ref=a.getAttribute("xlink:href");
-        console.log(ref);
+        //console.log(ref);
         if (!ref) {continue;}//means it is not an svg a element
         var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        console.log(newg);
+        //console.log(newg);
         newg.setAttribute("onclick","clicked_url('"+ref+"')");
         title=a.getAttribute("xlink:title");
         newg.setAttribute("xlink:title",title);
-        console.log(newg)
+        //console.log(newg)
         kids=a.childNodes;
         for(j=kids.length-1;j>=0;j--){
             newg.appendChild(kids[j]);
-            console.log(kids[j])
+            //console.log(kids[j])
         };
         a.parentNode.appendChild(newg);
         a.parentNode.removeChild(a);
@@ -134,13 +134,13 @@ function subd_dot(x)
     defs=x.substring(x.indexOf('\n',s+1),e-1);
     x=x.substring(0,s)+x.substring(x.indexOf('\n',e+1))
     tmp1=defs.split('\n');
-    console.log(tmp1)
+    /console.log(tmp1)
     tmp1.forEach(function(line){
             if(!line || line[0]!="#") {return;}
             l=line.split("#");
             let f=RegExp(l[1],'g');
             t=l[2];
-            console.log(f,t);
+            //console.log(f,t);
             x=x.replace(f,t);
         });
     return x;
@@ -148,7 +148,7 @@ function subd_dot(x)
 function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
 {
     let a=RegExp('%%([a-zA-Z0-9_\/ -]+)%%','g')
-    console.log(a);
+    //console.log(a);
     x=x.replace(a,'[URL="$1"]');
 return x;
 }
@@ -157,10 +157,10 @@ stam="";
 fetch(wdir+"editme.dot").
     then(resp=>resp.text()).
     then(data=>{
-        stam=data;
-        console.log(data);
+        //stam=data;
+        //console.log(data);
         subd=subd_dot(data);
-        console.log(subd);
+        //console.log(subd);
         subl=subl_dot(subd);
         draw_dot_file(subl);
     }).
