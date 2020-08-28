@@ -66,19 +66,19 @@ function subd_dot(x)
 {
     var pairs=[];
     s=x.indexOf("\n#{")
-    if s<0 return x; // no definitions portion
-    e=x.indexOf("\n#}", s)
-    if e<0 throw "missing #} in dot file"
+    if (s<0) {return x;} // no definitions portion
+    e=x.indexOf("\n#}", s);
+    if (e<0) {throw "missing #} in dot file";}
     defs=x.substring(index('\n',s+1),index('\n',e+1));
     x=x.substring(0,s)+x.substring(index('\n',e+1))
     tmp1=defs.split('\n');
     tmp1.forEach(function(line){
             l=line.split("#");
-            let f=RegExp(l[1],'g')
+            let f=RegExp(l[1],'g');
             t=l[2];
-            x.replace(f,t)
+            x.replace(f,t);
         });
-return x;
+    return x;
 }
 function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
 {
