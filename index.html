@@ -25,7 +25,7 @@ rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/"
 wdir=rawdir+subdir; //is this even needed?
 //\"https:\/\/github.com\/tilnow\/tilnow.github.io\/edit\/master\/md\/\1.md\
 edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
-
+document.getElementById("editfile").href=edir+"editme.dot";
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
   if(sessionStorage.getItem("first")=="NO"){
 	return;
@@ -170,7 +170,7 @@ fetch(wdir+"editme.dot").
 
 <p>A graphic layout where each text item is clickable and leads to a descriptive file. hosted on github pages.</p>
 
-<p>use links below to edit docs. use github editor to edit layout of file <a href="https://github.com/tilnow/tilnow.github.io/edit/master/editme.dot">editme.dot</a></p>
+<p>use links below to edit docs. use github editor to edit layout of file <a id="editfile" href="">editme.dot</a></p>
 
 
 
