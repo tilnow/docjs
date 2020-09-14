@@ -1,0 +1,109 @@
+#a dot file which includes all our IT infrastructure
+#unlike standard dot, we have some macros here
+# %%XXX%%% means there is a file XXX.md with explanation. all items AND links should have one, so please create
+# some keywords in uppercase, like TOOL, DATA, WEBSERVICE were defined in replacings.sed and now down below and contain formatting instructions
+# all other dot thingees apply
+# rendering is using plain dot
+
+
+#{ #start substitution definitions no spaces before name. hash (#) after name. comment optional
+#WEBSITE#[shape=doublecircle][color=green] #a site we expect _members_ (or at least non-sys admins) to use the site-provided ui sometimes
+#WEBSERVICE#[shape=egg][color=green] #mainly used to transform data. of course, somebody needs to use the ui at some point
+#USERSITE#[shape=triangle][color=green] #something individual members deal with indepdnent of YC
+#TOOL#[shape=rectangle][color=blue] # a software tool
+#DATA#[color=red] #data
+#FUNCTION#[color=black] #a function
+#} #end substitution definitions
+
+digraph G {
+labelloc="t";
+label="map of yak collective IT infrastructure (work in progress)";
+
+#components
+
+
+calandar WEBSITE[label="google\ncalandar"][URL="https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
+docs WEBSITE[label="google docs"][URL="https://roamresearch.com/#/app/ArtOfGig/page/UxescKnLz"];
+forms WEBSITE[label="registration\nform"][URL="https://roamresearch.com/#/app/ArtOfGig/page/jndSmXO3Q"];
+ifttt WEBSERVICE[label="IFTTT"][URL="https://roamresearch.com/#/app/ArtOfGig/page/1jMx-b5Fs"];
+dns WEBSERVICE[label="Namecheap"][URL="https://roamresearch.com/#/app/ArtOfGig/page/SrB_NQUiU"];
+github WEBSERVICE[label="GitHub"][URL="https://roamresearch.com/#/app/ArtOfGig/page/1PVNV7Ell"];
+netlify WEBSERVICE[label="Netlify"][URL="https://roamresearch.com/#/app/ArtOfGig/page/SVNduLQJn"];
+jekyll TOOL[label="Jekyll"][URL="https://roamresearch.com/#/app/ArtOfGig/page/fF35dWNYl"];
+carl WEBSERVICE[label="Carl"][URL="https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1"];
+
+discord WEBSITE[label="Discord"][URL="https://roamresearch.com/#/app/ArtOfGig/page/AsI1N4yGZ"];
+twitter WEBSERVICE[label="Twitter"][URL="https://roamresearch.com/#/app/ArtOfGig/page/ssp9sORuP"];
+
+welcomer TOOL[label="welcome bot"][URL="https://roamresearch.com/#/app/ArtOfGig/page/zXjWI-iSj"];
+yakyak TOOL[label="yakyak carl-bot"][URL="https://roamresearch.com/#/app/ArtOfGig/page/Wr8zsoGZ5"];
+
+#the website
+subgraph cluster_4 {
+  labelloc="t";
+  label="website functionality";
+  website WEBSITE[label="Yakcollective.org"][URL="https://roamresearch.com/#/app/ArtOfGig/page/h0Wx539Oq"];
+  netlifyrt WEBSERVICE[label="netlify\nbackending"][URL="https://roamresearch.com/#/app/ArtOfGig/page/-DyEtjJie"]; 
+
+}
+
+#things i do not know how to connect 
+subgraph cluster_0 {
+  labelloc="t";
+  label="not sure what connection is (yet)";
+
+  zapier WEBSERVICE[label="Zapier"][URL="https://roamresearch.com/#/app/ArtOfGig/page/WW4JidMuQ"];
+
+}
+
+#things not connected by IT with rest of infrastructure and managed seperatly and not used by members
+subgraph cluster_1 {
+  labelloc="t";
+  label="unconnected and manually managed\nnot by members";
+
+  gmail WEBSERVICE[label="yakcollective.org\n@gmail.com"][URL="https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0"];
+  facebook WEBSERVICE[label="Facebook"][URL="https://roamresearch.com/#/app/ArtOfGig/page/WZKSWTGz5"];
+  linkedin WEBSERVICE[label="Linkedin"][URL="https://roamresearch.com/#/app/ArtOfGig/page/M17w4lZJB"];
+}
+
+#things in process of connection with rest of infrastructure 
+subgraph cluster_2 {
+  labelloc="t";
+  label="in next version or two should be connected";
+
+  knack WEBSITE[label="Knack"][URL="https://roamresearch.com/#/app/ArtOfGig/page/FDjmLsCeR"];
+  roam WEBSITE[label="Roam"][URL="https://roamresearch.com/#/app/ArtOfGig/page/FEPWC0DLJ"];
+  yak_scraper TOOL[label="yak_scraper"][URL="https://roamresearch.com/#/app/ArtOfGig/page/-OUopK-ql"]
+
+}
+
+#things that represent user generated data on web 
+subgraph cluster_3 {
+  labelloc="t";
+  label="members' web presence";
+
+  substack USERSITE[label="Substack"][URL="https://roamresearch.com/#/app/ArtOfGig/page/kMaCo6Xc-"];
+  blogs USERSITE[label="member\nblogs"][URL="https://roamresearch.com/#/app/ArtOfGig/page/RLF445t5m"];
+
+}
+
+#links
+website->ifttt->twitter DATA[label="feedupdates"][URL="https://roamresearch.com/#/app/ArtOfGig/page/vb-TjfidT"];
+{substack, blogs}->netlifyrt DATA[label="member-generated\nweb-content"][URL="https://roamresearch.com/#/app/ArtOfGig/page/gg1Rhn-k9"];
+netlifyrt->{github,discord} FUNCTION[label="create_post"][URL="https://roamresearch.com/#/app/ArtOfGig/page/MX6h90kc6"];
+dns->netlify DATA[label="CNAME"][URL="https://roamresearch.com/#/app/ArtOfGig/page/oj_yd_nJQ"];
+website->forms DATA[label="minimal\nuser data"];
+forms->discord FUNCTION[label="invite"];
+discord->welcomer DATA[label="newby"];
+welcomer->discord FUNCTION[label="welcoming"];
+discord->yakyak DATA[label="newby"];
+yakyak->discord FUNCTION[label="prune"];
+
+welcomer->discord FUNCTION[label="welcome\nnew user"];
+docs->website FUNCTION[label="host\nprojects"];
+calandar->carl FUNCTION[label="calandar yak"][URL="https://roamresearch.com/#/app/ArtOfGig/page/HB6pYl8y1"];
+carl->discord DATA[label="reminders"];
+github->jekyll DATA[label="md files\nand others"][URL="https://roamresearch.com/#/app/ArtOfGig/page/mUmau331V"];
+jekyll->netlify DATA [label="Rendered\nwebsite"][]URL="https://roamresearch.com/#/app/ArtOfGig/page/olV_kr5d8";
+netlify->website DATA[label="Deploy"][URL="https://roamresearch.com/#/app/ArtOfGig/page/aNm73M_3p"];
+}
