@@ -3,7 +3,6 @@
 
 </style>
 
-<!---<script src="stam.js"></script> not really needed--->
 
 
 <script src="viz.js"></script>
@@ -110,22 +109,12 @@ function subd_dot(x)
         });
     return x;
 }
-function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
-{
-    let a=RegExp('%%([a-zA-Z0-9_\/ -]+)%%','g')
-    //console.log(a);
-    x=x.replace(a,'[URL="$1"]');
-return x;
-}
-stam="";
 fetch("/editme.dot").
     then(resp=>resp.text()).
     then(data=>{
-        //stam=data;
         //console.log(data);
         subd=subd_dot(data);
         //console.log(subd);
-        subl=subl_dot(subd);
         draw_dot_file(subl);
     }).
     catch(console.log("maybe some problem with reading dot file from github"));
