@@ -3,7 +3,6 @@
 
 </style>
 
-<!---<script src="stam.js"></script> not really needed--->
 
 
 <script src="viz.js"></script>
@@ -13,18 +12,9 @@
 
 <script>
 
-basedir="https://tilnow.github.io/docjs/";
-t=window.location.href;
-if (t[0]=="h"){basedir=t;}//running from web, not locally
-subdir="_docs/"; //for now it seems all must be in same dir, but data files can be elsewhere because we fetch them
-s1=basedir.split('.');
-githubuser=s1[0].split("/")[2];
-githubrepo=s1[2].split("/")[1];
-//https://raw.githubusercontent.com/tilnow/testbot/abranch/linktomembers
-rawdir="https://raw.githubusercontent.com/"+githubuser+"/"+githubrepo+"/master/";
-wdir=rawdir+subdir; //is this even needed?
-//\"https:\/\/github.com\/tilnow\/tilnow.github.io\/edit\/master\/md\/\1.md\
-edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/"+subdir;
+githubuser="tilnow";
+githubrepo="docjs";
+edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/";
 
 function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
 
@@ -50,34 +40,7 @@ uses Graphviz, Viz.js, showdown, Expat, zlib, Emscripten, with copyright notices
 }
 function clicked_url(x)
 {
-    //console.log(x, iseditmode);
-    if(iseditmode){
-        window.open(edir+x+".md");
-    }
-    else
-    {
-        w=window.open("");
-
-        fetch(wdir+x+".md").
-    then(resp=>resp.text()).
-    then(data=>{
-        stam=data;
-        //console.log(data);
-        var converter = new showdown.Converter(),
-        html = converter.makeHtml(data);
-        //console.log(html)
-        w.document.body.innerHTML=html;
-        //w.history.replaceState("object or string", x, "/isthisaurl"); //does notw ork on empty items
-        w.location.hash = "Now showing documentation for file: " + x; //changes tab name too
-        w.document.title=x;
-        w.document.close();
-
-        
-    }).
-    catch(console.log("maybe some problem with reading dot file from github"));
-
-    }
-return false;
+    window.open(x);
 }
 
 function draw_dot_file(stringforviz){
@@ -146,48 +109,23 @@ function subd_dot(x)
         });
     return x;
 }
-function subl_dot(x) //put in correct link adressess. put in ONLY the name of the file. draw-dot will add "click" capture the click, etc.
-{
-    let a=RegExp('%%([a-zA-Z0-9_\/ -]+)%%','g')
-    //console.log(a);
-    x=x.replace(a,'[URL="$1"]');
-return x;
-}
-iseditmode=false;
-stam="";
-fetch(wdir+"editme.dot").
+fetch("/editme.dot").
     then(resp=>resp.text()).
     then(data=>{
-        //stam=data;
         //console.log(data);
         subd=subd_dot(data);
         //console.log(subd);
-        subl=subl_dot(subd);
-        draw_dot_file(subl);
+        draw_dot_file(subd);
     }).
     catch(console.log("maybe some problem with reading dot file from github"));
-
 </script>
 </head>
 <body onload="bodyonload()">
 <h1>Yak Documentation tool</h1>
 
-<p>A graphic layout where each text item is clickable and leads to a descriptive file. hosted on github pages.</p>
+<p>A graphic layout where each text item is clickable and leads to a descriptive page in Roam.</p>
 
 <p>use github editor to edit layout of file <a id="editfile" href="">editme.dot</a> <em>Refresh after!</em></p>
 
-
-
-Make text files editable:
-  <input type="checkbox" onChange="toggleeditmode(this)">
-<script>
-function toggleeditmode(element)
- {
-   iseditmode=element.checked;
- }
-</script>
-
-
 <div id="hereidraw"><div id="sonofhereidraw"></div></div>
 </body>
-

@@ -1,1 +1,0 @@
-we ask user a minimal amount of information and send it to google forms
