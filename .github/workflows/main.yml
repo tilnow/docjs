@@ -1,0 +1,25 @@
+name: Update SVG
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-svg:
+    runs-on: ubuntu-latest
+    name: Update SVG
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup dependencies
+        run: |
+          sudo apt-get install graphviz
+      - name: Create new SVG
+        run: |
+          sed -E -f macros.sed infrastructure.dot | dot -Tsvg > infrastructure.svg
+      - name: Commit changes
+        uses: elstudio/actions-js-build/commit@v3
+        with:
+          commitMessage: Updated infrastructure diagram SVG

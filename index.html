@@ -1,32 +1,16 @@
 <head>
-<style>
+	<script src="viz.js"></script>
+	<script src="full.render.js"></script>
+	<script src="showdown.min.js"></script>
+	<script>
+		// Display @tilnow's copyright notice.
+		//
+		function displayCopyrightNotice() {
+			if (sessionStorage.getItem("first") === "NO") return;
 
-</style>
+			sessionStorage.setItem("first", "NO");
 
-
-
-<script src="viz.js"></script>
-<script src="full.render.js"></script>
-<script src="showdown.min.js"></script>
-<!---ideally we would run from  a higher dir. but maybe also assetts will need to be in this dir --->
-
-<script>
-
-githubuser="tilnow";
-githubrepo="docjs";
-edir="https://github.com/"+githubuser+"/"+githubrepo+"/edit/master/";
-
-function bodyonload(){ //maybe a mistake, as what we shoudl do is block reload. as it is now, reload will probbaly screw up clist, etc anyway
-
-    document.getElementById("editfile").href=edir+"editme.dot";
-
-
-  if(sessionStorage.getItem("first")=="NO"){
-	return;
-	}
-  sessionStorage.setItem("first","NO");//indeed works. contents are not meaningful, though
-  alert(`
-docjs V0.8 Copyright (2020) @tilnow. For now released with  the MIT license:
+			alert(`docjs V0.8 Copyright (2020) @tilnow. For now released with  the MIT license:
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -34,98 +18,80 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-uses Graphviz, Viz.js, showdown, Expat, zlib, Emscripten, with copyright notices in the source file for Eclipse, MIT, Zlib.`);
+Uses Graphviz, Viz.js, showdown, Expat, zlib, Emscripten, with copyright notices in the source file for Eclipse, MIT, Zlib.`);
+		}
 
+		// Take dotData and convert it to an SVG. Equivalent to the
+		// command:
+		//
+		//     dot -Tsvg infrastructure.dot
+		//
+		function dotToSvg(dotData) {
+			var viz = new Viz();
 
-}
-function clicked_url(x)
-{
-    window.open(x);
-}
+			viz.renderSVGElement(dotData)
+  				.then(function (currentElement) {
+					anchorTags = currentElement.getElementsByTagName("a");
+					anchorCount = anchorTags.length;
+					for (i = anchorCount - 1; i >= 0 ; i--) {
+						anchorTag = anchorTags[i];
+						xlinkHref = anchorTag.getAttribute("xlink:href");
+						if (!xlinkHref) continue; // Not a SVG link element
+						var newG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+						newG.setAttribute("onclick", "window.open('" + xlinkHref + "')");
+						xlinkTitle = anchorTag.getAttribute("xlink:title");
+        				newG.setAttribute("xlink:title", xlinkTitle);
+						anchorChildren = anchorTag.childNodes;
+						for (j = anchorChildren.length - 1; j >= 0; j--) {
+							newG.appendChild(anchorChildren[j]);
+						};
+						anchorTag.parentNode.appendChild(newG);
+						anchorTag.parentNode.removeChild(anchorTag);
+					}
 
-function draw_dot_file(stringforviz){
+					var currentContainer = document.getElementById("svgContainer");
+					currentContainer.removeChild(currentContainer.lastChild);
+					currentContainer.appendChild(currentElement);
+				})
+				.catch(error => {
+					viz = new Viz(); // Create a new Viz instance (see caveats page for more info)
+					console.log(error);
+					console.log(viz);
+				});
+		}
 
-  var viz = new Viz();
-  
-  viz.renderSVGElement(stringforviz)
-  .then(function(element) {
-//console.log(stringforviz,element)
-    allas=element.getElementsByTagName('a');
-    //console.log(document.getElementsByTagName('a'), element.getElementsByTagName('a'));
-    count=allas.length;
-    //console.log(count);
-    for (i = count-1; i>= 0 ; i--) {
-        a=allas[i];
-        ref=a.getAttribute("xlink:href");
-        //console.log(ref);
-        if (!ref) {continue;}//means it is not an svg a element
-        var newg=document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        //console.log(newg);
-        newg.setAttribute("onclick","clicked_url('"+ref+"')");
-        title=a.getAttribute("xlink:title");
-        newg.setAttribute("xlink:title",title);
-        //console.log(newg)
-        kids=a.childNodes;
-        for(j=kids.length-1;j>=0;j--){
-            newg.appendChild(kids[j]);
-            //console.log(kids[j])
-        };
-        a.parentNode.appendChild(newg);
-        a.parentNode.removeChild(a);
-    }
+		// Loop through macroData, splitting out the search and replace
+		// components of each sed expression, and then apply the
+		// specified replacement to dotData. Then, return the modified
+		// version of dotData.
+		//
+		// This essentially replicates the command:
+		//
+		//     sed -E -f macros.sed infrastructure.dot
+		//
+		function expandMacros(dotData, macroData) {
+			macroData.split("\n").forEach(function (macroRegExp) {
+				if (macroRegExp.length === 0) return;
+				regExpParts = macroRegExp.split("/");
+				let searchExp = RegExp(regExpParts[1], "g");
+				replaceString = regExpParts[2];
+				dotData=dotData.replace(searchExp, replaceString);
+			});
+			return dotData;
+		}
 
-var here=document.getElementById("hereidraw");
-here.removeChild(here.lastChild);
-here.appendChild(element);
-
-  })
-  .catch(error => {
-    // Create a new Viz instance (@see Caveats page for more info)
-    viz = new Viz();
-
-    // Possibly display the error
-    console.log(error);
-    console.log(viz);
-  });
-}
-function subd_dot(x)
-{
-    var pairs=[];
-    s=x.indexOf("\n#{")
-    if (s<0) {return x;} // no definitions portion
-    e=x.indexOf("\n#}", s);
-    if (e<0) {throw "missing #} in dot file";}
-    defs=x.substring(x.indexOf('\n',s+1),e-1);
-    x=x.substring(0,s)+x.substring(x.indexOf('\n',e+1))
-    tmp1=defs.split('\n');
-    //console.log(tmp1);
-    tmp1.forEach(function(line){
-            if(!line || line[0]!="#") {return;}
-            l=line.split("#");
-            let f=RegExp(l[1],'g');
-            t=l[2];
-            //console.log(f,t);
-            x=x.replace(f,t);
-        });
-    return x;
-}
-fetch("/editme.dot").
-    then(resp=>resp.text()).
-    then(data=>{
-        //console.log(data);
-        subd=subd_dot(data);
-        //console.log(subd);
-        draw_dot_file(subd);
-    }).
-    catch(console.log("maybe some problem with reading dot file from github"));
-</script>
+		// Fetch `infrastructure.dot`, then fetch `macros.sed`, then
+		// process the whole thing.
+		//
+		fetch("infrastructure.dot")
+			.then(resp => resp.text())
+			.then(dotData => {
+				fetch("macros.sed")
+					.then(resp => resp.text())
+					.then(macroData => dotToSvg(expandMacros(dotData, macroData)));
+			});
+	</script>
 </head>
-<body onload="bodyonload()">
-<h1>Yak Documentation tool</h1>
-
-<p>A graphic layout where each text item is clickable and leads to a descriptive page in Roam.</p>
-
-<p>use github editor to edit layout of file <a id="editfile" href="">editme.dot</a> <em>Refresh after!</em></p>
-
-<div id="hereidraw"><div id="sonofhereidraw"></div></div>
+<body onload="displayCopyrightNotice();" id="svgContainer">
+	<div></div>
 </body>

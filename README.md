@@ -17,5 +17,5 @@ Then go to <https://localhost:8080/index.html> to view the infrastrucutre diagra
 To generate an SVG for Roam, use:
 
 ```bash
-sed -E -f replacings.sed editme.dot | dot -Tsvg > editme.svg
+sed -E -f macros.sed infrastructure.dot | dot -Tsvg > infrastructure.svg
 ```
