@@ -23,6 +23,7 @@ digraph yak_infrastructure {
 			labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0";
 			color = "gray";
 
+			gmail INTERNAL_SERVICE [label = "Gmail"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0"];
 			google_analytics INTERNAL_SERVICE [label = "Google\nAnalytics"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/gkim0kNQ8"];
 			google_calendar STATIC_DATA [label = "Google\nCalendar"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
 			registration_form STATIC_DATA [label = "Registration\nForm"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/oG9FwDcRH"];
@@ -34,13 +35,22 @@ digraph yak_infrastructure {
 
 	zapier INTERNAL_SERVICE [label = "Zapier"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/WW4JidMuQ"];
 
+	subgraph cluster_vultr {
+		labelloc = "t";
+		label = "Vultr";
+		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/WpgCSZdjg";
+		color = "gray";
+
+		yak_scraper APPLET [label = "yak_scraper"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AaFxsbkdW"];
+		gigayak APPLET [label = "gigayak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/_1voFfg7g"];
+	}
+
 	subgraph cluster_carl {
 		labelloc = "t";
 		label = "Carl";
 		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1";
 		color = "gray";
 
-		calendar_yak APPLET [label = "calendar_yak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/4lz1jh2sn"];
 		welcome_bot APPLET [label = "welcome_bot"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/S_Xkw1vVi"];
 		yakyak  APPLET [label = "yakyak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/Q1LoZ_dE4"];
 	}
@@ -127,6 +137,11 @@ digraph yak_infrastructure {
 	welcome_bot -> discord AUTO_DATA [label = "Welcome message\nseries"];
 	yakyak -> discord AUTO_DATA [label = "Prune inactive\nusers"];
 
+	# Member interactions
+	#
+	discord -> {gigayak, yak_scraper} USER_DATA [label = "User\ncommand"];
+	{gigayak, yak_scraper} -> discord USER_DATA [label = "Requested info or\nacknowledgement"];
+
 	# Building the website
 	#
 	developer -> github USER_DATA [label = "Git commit"];
@@ -154,6 +169,9 @@ digraph yak_infrastructure {
 	# Google Calendar  ->  Twitter/Discord
 	#
 	google_calendar -> zapier AUTO_DATA [label = "Pulled by\nZapier"];
-	zapier -> discord AUTO_DATA [label = "Post in\n#events"];
 	zapier -> twitter AUTO_DATA [label = "Tweet about\nnew content"];
+
+	google_calendar -> gmail AUTO_DATA [label = "Notification and\nagenda emails"];
+	gmail -> yak_scraper AUTO_DATA [label = "Gmail\nAPI"];
+	yak_scraper -> discord AUTO_DATA [label = "Post in\n#events"];
 }
