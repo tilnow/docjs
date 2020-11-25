@@ -23,11 +23,11 @@ digraph yak_infrastructure {
 			labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0";
 			color = "gray";
 
+			google_analytics INTERNAL_SERVICE [label = "Google\nAnalytics"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/gkim0kNQ8"];
 			google_calendar STATIC_DATA [label = "Google\nCalendar"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
 			registration_form STATIC_DATA [label = "Registration\nForm"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/oG9FwDcRH"];
 		}
 
-		google_analytics INTERNAL_SERVICE [label = "Google\nAnalytics"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/gkim0kNQ8"];
 		reboot_deck STATIC_DATA [label = "\"Don't Waste the\nReboot\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/s7km8fEQp"];
 		home_deck STATIC_DATA [label = "\"The New Old\nHome\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/sGxc8YzrD"];
 	}
