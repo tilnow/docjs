@@ -23,7 +23,6 @@ digraph yak_infrastructure {
 			labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0";
 			color = "gray";
 
-			gmail INTERNAL_SERVICE [label = "Gmail"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/bRd-QWJA0"];
 			google_analytics INTERNAL_SERVICE [label = "Google\nAnalytics"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/gkim0kNQ8"];
 			google_calendar STATIC_DATA [label = "Google\nCalendar"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
 			registration_form STATIC_DATA [label = "Registration\nForm"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/oG9FwDcRH"];
@@ -172,7 +171,6 @@ digraph yak_infrastructure {
 	google_calendar -> zapier AUTO_DATA [label = "Pulled by\nZapier"];
 	zapier -> twitter AUTO_DATA [label = "Tweet about\nnew content"];
 
-	google_calendar -> gmail AUTO_DATA [label = "Notification and\nagenda emails"];
-	gmail -> calendar_yak AUTO_DATA [label = "Gmail\nAPI"];
+	google_calendar -> calendar_yak AUTO_DATA [label = "Google Calendar\nAPI"];
 	calendar_yak -> discord AUTO_DATA [label = "Post in\n#events"];
 }
