@@ -25,14 +25,11 @@ digraph yak_infrastructure {
 
 			google_analytics INTERNAL_SERVICE [label = "Google\nAnalytics"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/gkim0kNQ8"];
 			google_calendar STATIC_DATA [label = "Google\nCalendar"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
-			registration_form STATIC_DATA [label = "Registration\nForm"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/oG9FwDcRH"];
 		}
 
 		reboot_deck STATIC_DATA [label = "\"Don't Waste the\nReboot\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/s7km8fEQp"];
 		home_deck STATIC_DATA [label = "\"The New Old\nHome\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/sGxc8YzrD"];
 	}
-
-	zapier INTERNAL_SERVICE [label = "Zapier"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/WW4JidMuQ"];
 
 	subgraph cluster_vultr {
 		labelloc = "t";
@@ -40,20 +37,23 @@ digraph yak_infrastructure {
 		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/WpgCSZdjg";
 		color = "gray";
 
-		calendar_yak APPLET [label = "Calendar Yak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/h8CetC_Re"];
-		yak_scraper APPLET [label = "yak_scraper"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AaFxsbkdW"];
 		gigayak APPLET [label = "gigayak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/_1voFfg7g"];
+		iamz1 APPLET [label = "IamZ1"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/SvvXQHcP-"];
+		project_ui APPLET [label = "Project_UI"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6F1F3oaNT"];
+		yak_scraper APPLET [label = "Shepherd / \nyak_scraper"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AaFxsbkdW"];
+
+		subgraph cluster_vultr_unused {
+			labelloc = "t";
+			label = "Unused";
+			color = "gray";
+
+			yakdate APPLET [label = "yakdate"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/h8CetC_Re"];
+		}
 	}
 
-	subgraph cluster_carl {
-		labelloc = "t";
-		label = "Carl";
-		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1";
-		color = "gray";
+	carl APPLET [label = "Carl"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1"];
 
-		welcome_bot APPLET [label = "welcome_bot"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/S_Xkw1vVi"];
-		yakyak  APPLET [label = "yakyak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/Q1LoZ_dE4"];
-	}
+	bookmarker APPLET [label = "Bookmarker"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/olyafjy4D"];
 
 	discord EXTERNAL_SERVICE [label = "Discord"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AsI1N4yGZ"];
 
@@ -62,15 +62,22 @@ digraph yak_infrastructure {
 	member_feeds STATIC_DATA [label = "Member RSS\nFeeds"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/RLF445t5m"];
 
 	twitter EXTERNAL_SERVICE [label = "Twitter"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/ssp9sORuP"];
-	facebook EXTERNAL_SERVICE [label = "Facebook"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/WZKSWTGz5"];
-	linkedin EXTERNAL_SERVICE [label = "LinkedIn"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/M17w4lZJB"];
+
+	z1 HARDWARE [label = "Wonderful\nWandering\nGrowth"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/lLs7Ev9Pd"];
 
 	subgraph cluster_unused {
 		labelloc = "t";
 		label = "Unused";
 		color = "gray";
 
+		facebook EXTERNAL_SERVICE [label = "Facebook"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/WZKSWTGz5"];
 		glitch INTERNAL_SERVICE [label = "Glitch"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/bTxU0ABQS"];
+		linkedin EXTERNAL_SERVICE [label = "LinkedIn"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/M17w4lZJB"];
+		zapier INTERNAL_SERVICE [label = "Zapier"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/WW4JidMuQ"];
+
+		integromat INTERNAL_SERVICE [label = "Integromat"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/ExYczJs8u"];
+
+		welcomer APPLET [label = "Welcomer"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6EFGxN2M8"];
 	}
 
 	subgraph cluster_ifttt {
@@ -115,8 +122,14 @@ digraph yak_infrastructure {
 	}
 
 	namecheap INTERNAL_SERVICE [label = "Namecheap"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/SrB_NQUiU"];
+
+	cloudinary INTERNAL_SERVICE [label = "Cloudinary"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/aZug23GyY"];
+
 	knack EXTERNAL_SERVICE [label = "Knack"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/FDjmLsCeR"];
+
 	roam EXTERNAL_SERVICE [label = "Roam"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/FEPWC0DLJ"];
+
+	mirror EXTERNAL_SERVICE [label = "Mirror.xyz"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wTZFaIrwc"];
 
 	# Hidden user interaction nodes
 	#
@@ -131,27 +144,37 @@ digraph yak_infrastructure {
 	# Member registration flow
 	#
 	visitor -> website USER_DATA [label = "Website visitor"];
-	website -> registration_form USER_DATA [label = "Sign up form\n(minimal data)"];
-	registration_form -> discord USER_DATA [label = "Invite link"];
-	discord -> {welcome_bot, yakyak} AUTO_DATA [label = "New user\nnotification / data"];
-	welcome_bot -> discord AUTO_DATA [label = "Welcome message\nseries"];
-	yakyak -> discord AUTO_DATA [label = "Prune inactive\nusers"];
+	website -> knack USER_DATA [label = "Sign up form\n(minimal data)"];
+	knack -> discord USER_DATA [label = "Invite link"];
 
 	# Member interactions
 	#
-	discord -> {gigayak, yak_scraper} USER_DATA [label = "User\ncommand"];
+	discord -> {bookmarker, carl} AUTO_DATA [label = "Command"];
+	{bookmarker, carl} -> discord AUTO_DATA [label = "Response"];
+
+	discord -> {gigayak, iamz1, yak_scraper} USER_DATA [label = "User\ncommand"];
 	{gigayak, yak_scraper} -> discord USER_DATA [label = "Requested info or\nacknowledgement"];
+	iamz1 -> z1 USER_DATA [label = "Rover command"];
+	yak_scraper -> twitter USER_DATA [label = "$yaktweet"];
+
+	discord -> project_ui AUTO_DATA [label = "Channel\ninformation"];
+	project_ui -> discord AUTO_DATA [label = "Build\n#project-notifications"];
+
+	gigayak -> discord USER_DATA [label = "Build\n#gig-list"];
 
 	# Building the website
 	#
 	developer -> github USER_DATA [label = "Git commit"];
 	github -> netlify_ci AUTO_DATA [label = "Repo contents pushed\non commit"];
 	netlify_applet -> netlify_ci AUTO_DATA [label = "Trigger rebuild\nevery 24 hours"];
+	knack -> netlify_ci AUTO_DATA [label = "Pull member data\nduring build process"];
 	netlify_ci -> jekyll AUTO_DATA [label = "Build website"];
 	jekyll -> netlify_cdn AUTO_DATA [label = "Optimize & deploy\nwebsite files"];
-	namecheap -> netlify_cdn AUTO_DATA [label = "DNS information"];
+	namecheap -> website USER_DATA [label = "DNS information"];
 	netlify_cdn -> {website, featured_yak} AUTO_DATA [label = "Push to Amazon\nCloudfront"];
 	netlify_cdn -> create_post AUTO_DATA [label = "Create Amazon\nLambda function"];
+	knack -> cloudinary AUTO_DATA [label = "Image\nprocessing"];
+	cloudinary -> website USER_DATA [label = "Serve images\nto visitors"];
 
 	# Various RSS feeds to the website/Discord
 	#
@@ -166,11 +189,12 @@ digraph yak_infrastructure {
 	featured_yak -> twitter_applets AUTO_DATA [label = "Pulled\nby IFTTT"];
 	twitter_applets -> twitter AUTO_DATA [label = "Tweet about\nnew content"];
 
-	# Google Calendar  ->  Twitter/Discord
+	# Google Calendar ->  Discord
 	#
-	google_calendar -> zapier AUTO_DATA [label = "Pulled by\nZapier"];
-	zapier -> twitter AUTO_DATA [label = "Tweet about\nnew content"];
+	google_calendar -> project_ui AUTO_DATA [label = "Google Calendar\nAPI"];
+	project_ui -> discord AUTO_DATA [label = "Post in\n#events-this-week"];
 
-	google_calendar -> calendar_yak AUTO_DATA [label = "Google Calendar\nAPI"];
-	calendar_yak -> discord AUTO_DATA [label = "Post in\n#events"];
+	# Backup
+	#
+	roam -> github AUTO_DATA [label = "Nightly backup"];
 }
