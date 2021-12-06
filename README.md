@@ -10,6 +10,7 @@ Prototype documentation tool for [Yak Collective](https://yakcollective.org) [IT
 | Green Oval          | `EXTERNAL_SERVICE` | Externally-facing web service used by YC members/participants (and sometimes others)   |
 | Blue Oval           | `INTERNAL_SERVICE` | Internally-facing web service used by few YC members (sometimes not accessible at all) |
 | Blue Rectangle      | `APPLET`           | A function, service applet, or internal tool; contained by and run by some service     |
+| Black Trapezoid     | `HARDWARE`         | Physical hardware (robot, etc.)                                                        |
 | Red Line            | `USER_DATA`        | Manual data flow (someone creates an account, reviews a list and takes action, etc.)   |
 | Black Line          | `AUTO_DATA`        | Automatic data flows (service takes action based on a timer, webhook, etc.)            |
 
