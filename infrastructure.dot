@@ -133,8 +133,8 @@ digraph yak_infrastructure {
 
 	# Hidden user interaction nodes
 	#
-	visitor  [shape = plaintext] [label = ""];
-	developer  [shape = plaintext] [label = ""];
+	visitor [shape = plaintext] [label = ""];
+	developer [shape = plaintext] [label = ""];
 
 	# Website data flows to Google
 	#
