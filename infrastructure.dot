@@ -27,8 +27,38 @@ digraph yak_infrastructure {
 			google_calendar STATIC_DATA [label = "Google\nCalendar"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/5JAKKBvdi"];
 		}
 
-		reboot_deck STATIC_DATA [label = "\"Don't Waste the\nReboot\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/s7km8fEQp"];
-		home_deck STATIC_DATA [label = "\"The New Old\nHome\" deck"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/sGxc8YzrD"];
+		reboot_deck STATIC_DATA [label = "\"Don't Waste the\nReboot\" deck"] [URL = "https://docs.google.com/presentation/d/1OfBuSq4SImE1Gq2EaAGCAlkwC8LZRCWx-7O_VOHJ5TI/edit"];
+		home_deck STATIC_DATA [label = "\"The New Old\nHome\" deck"] [URL = "https://docs.google.com/presentation/d/1Bgs4e6YIEydMot0VM4lf-onZM2z6Zei3n87f3JHCeSk/edit"];
+	}
+
+	subgraph cluster_mirror {
+		labelloc = "t";
+		label = "Mirror.xyz";
+		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/wTZFaIrwc";
+		color = "gray";
+
+		ogs_paper STATIC_DATA [label = "The Art of\nOnline Governance"];
+	}
+
+	subgraph cluster_rovers {
+		labelloc = "t";
+		label = "Yak Rovers";
+		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/QmE-vAzPn";
+		color = "gray";
+
+		iamz1 APPLET [label = "IamZ1"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/UJJ21SsLC"];
+		rover_twitter APPLET [label = "Rover-Twitter"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/SIgMI9pV7"];
+		pagekite_backend APPLET [label = "Pagekite\n(backend)"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/rQBs_dFEE"];
+	}
+
+	subgraph cluster_twitter {
+		labelloc = "t";
+		label = "Twitter";
+		labelURL = "https://roamresearch.com/#/app/ArtOfGig/page/ssp9sORuP";
+		color = "gray";
+
+		yc_twitter APPLET [label = "@yak_collective"] [URL = "https://twitter.com/yak_collective"];
+		yak_rovers_twitter APPLET [label = "@RoversYak"] [URL = "https://twitter.com/RoversYak"];
 	}
 
 	subgraph cluster_vultr {
@@ -38,9 +68,9 @@ digraph yak_infrastructure {
 		color = "gray";
 
 		gigayak APPLET [label = "gigayak"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/_1voFfg7g"];
-		iamz1 APPLET [label = "IamZ1"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/SvvXQHcP-"];
 		project_ui APPLET [label = "Project_UI"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6F1F3oaNT"];
 		yak_scraper APPLET [label = "Shepherd / \nyak_scraper"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AaFxsbkdW"];
+		pagekite_frontend APPLET [label = "Pagekite\n(frontend)"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6BNamvVZb"];
 
 		subgraph cluster_vultr_unused {
 			labelloc = "t";
@@ -53,6 +83,8 @@ digraph yak_infrastructure {
 
 	carl INTERNAL_SERVICE [label = "Carl"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1"];
 
+	unbelievaboat INTERNAL_SERVICE [label = "UnbelievaBoat"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/V0Psko_9g"];
+
 	bookmarker INTERNAL_SERVICE [label = "Bookmarker"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/olyafjy4D"];
 
 	discord EXTERNAL_SERVICE [label = "Discord"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AsI1N4yGZ"];
@@ -60,10 +92,6 @@ digraph yak_infrastructure {
 	substack EXTERNAL_SERVICE [label = "Substack"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/kMaCo6Xc-"];
 
 	member_feeds STATIC_DATA [label = "Member RSS\nFeeds"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/RLF445t5m"];
-
-	twitter EXTERNAL_SERVICE [label = "Twitter"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/ssp9sORuP"];
-
-	z1 HARDWARE [label = "Wonderful\nWandering\nGrowth"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/lLs7Ev9Pd"];
 
 	subgraph cluster_unused {
 		labelloc = "t";
@@ -129,17 +157,17 @@ digraph yak_infrastructure {
 
 	roam EXTERNAL_SERVICE [label = "Roam"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/FEPWC0DLJ"];
 
-	mirror EXTERNAL_SERVICE [label = "Mirror.xyz"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wTZFaIrwc"];
-
 	# Hidden user interaction nodes
 	#
 	visitor [shape = plaintext] [label = ""];
 	developer [shape = plaintext] [label = ""];
+	driver [shape = plaintext] [label = ""];
 
 	# Website data flows to Google
 	#
 	website -> google_analytics AUTO_DATA [label = "Visitor analytics"];
 	website -> {reboot_deck, home_deck} USER_DATA [label = "Google Slides / PDF"];
+	website -> ogs_paper USER_DATA [label = "Mirror\npublication"];
 
 	# Member registration flow
 	#
@@ -149,18 +177,26 @@ digraph yak_infrastructure {
 
 	# Member interactions
 	#
-	discord -> {bookmarker, carl} AUTO_DATA [label = "Command"];
-	{bookmarker, carl} -> discord AUTO_DATA [label = "Response"];
+	discord -> {bookmarker, carl, unbelievaboat} AUTO_DATA [label = "Command"];
+	{bookmarker, carl, unbelievaboat} -> discord AUTO_DATA [label = "Response"];
 
-	discord -> {gigayak, iamz1, yak_scraper} USER_DATA [label = "User\ncommand"];
+	discord -> {gigayak, yak_scraper} USER_DATA [label = "User\ncommand"];
 	{gigayak, yak_scraper} -> discord USER_DATA [label = "Requested info or\nacknowledgement"];
-	iamz1 -> z1 USER_DATA [label = "Rover command"];
-	yak_scraper -> twitter USER_DATA [label = "$yaktweet"];
+	yak_scraper -> yc_twitter USER_DATA [label = "$yaktweet"];
 
 	discord -> project_ui AUTO_DATA [label = "Channel\ninformation"];
 	project_ui -> discord AUTO_DATA [label = "Build\n#project-notifications"];
 
 	gigayak -> discord USER_DATA [label = "Build\n#gig-list"];
+
+	# Yak rovers
+	#
+	discord -> iamz1 USER_DATA [label = "Rover command"];
+	iamz1 -> discord USER_DATA [label = "Rover response"];
+	rover_twitter -> yak_rovers_twitter AUTO_DATA [label = "Rover status"];
+	driver -> pagekite_frontend USER_DATA [label = "Rover\nAPI call"];
+	pagekite_frontend -> pagekite_backend USER_DATA [label = "Rover\nAPI call"];
+	pagekite_backend -> pagekite_frontend USER_DATA [label = "Rover API\nresponse"];
 
 	# Building the website
 	#
@@ -187,7 +223,7 @@ digraph yak_infrastructure {
 	#
 	{member_feeds, substack} -> twitter_applets USER_DATA [label = "Pulled\nby IFTTT"];
 	featured_yak -> twitter_applets AUTO_DATA [label = "Pulled\nby IFTTT"];
-	twitter_applets -> twitter AUTO_DATA [label = "Tweet about\nnew content"];
+	twitter_applets -> yc_twitter AUTO_DATA [label = "Tweet about\nnew content"];
 
 	# Google Calendar ->  Discord
 	#
