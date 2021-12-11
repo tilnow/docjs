@@ -191,8 +191,8 @@ digraph yak_infrastructure {
 
 	# Google Calendar ->  Discord
 	#
-	google_calendar -> project_ui AUTO_DATA [label = "Google Calendar\nAPI"];
-	project_ui -> discord AUTO_DATA [label = "Post in\n#events-this-week"];
+	google_calendar -> yak_scraper AUTO_DATA [label = "Google Calendar\nAPI"];
+	yak_scraper -> discord AUTO_DATA [label = "Post in\n#events-this-week"];
 
 	# Backup
 	#
