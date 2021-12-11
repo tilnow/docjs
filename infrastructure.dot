@@ -51,9 +51,9 @@ digraph yak_infrastructure {
 		}
 	}
 
-	carl APPLET [label = "Carl"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1"];
+	carl INTERNAL_SERVICE [label = "Carl"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/wfmK-RIl1"];
 
-	bookmarker APPLET [label = "Bookmarker"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/olyafjy4D"];
+	bookmarker INTERNAL_SERVICE [label = "Bookmarker"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/olyafjy4D"];
 
 	discord EXTERNAL_SERVICE [label = "Discord"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/AsI1N4yGZ"];
 
@@ -77,7 +77,7 @@ digraph yak_infrastructure {
 
 		integromat INTERNAL_SERVICE [label = "Integromat"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/ExYczJs8u"];
 
-		welcomer APPLET [label = "Welcomer"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6EFGxN2M8"];
+		welcomer INTERNAL_SERVICE [label = "Welcomer"] [URL = "https://roamresearch.com/#/app/ArtOfGig/page/6EFGxN2M8"];
 	}
 
 	subgraph cluster_ifttt {
