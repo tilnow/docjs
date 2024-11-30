@@ -1,1 +1,0 @@
-we use netlify (...) to manage our buidl process. when you comit to github, netlify rebuilds. we have netlify set up on several of the branches in gitgub

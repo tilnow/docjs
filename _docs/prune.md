@@ -1,1 +1,0 @@
-if an invitee has not done anything after a week, you are pruned
